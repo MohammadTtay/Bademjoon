@@ -279,4 +279,51 @@ fun AppView(ChangeLanguage: ()-> Unit) {
 
 
 
+@Composable
+fun TabView(tabBarItems: List<TabBarItem>,
+            navController: NavController) {
+    var selectedTabIndex by rememberSaveable {
+        mutableIntStateOf(2)
+    }
+    NavigationBar(
+        modifier = Modifier
+            .clip(RoundedCornerShape(20.dp, 20.dp, 0.dp, 0.dp))
+            .height(70.dp),
+        containerColor = MaterialTheme.colorScheme.primary
+    ) {
+        // looping over each tab to generate the views and navigation for each item
+        tabBarItems.forEachIndexed { index, tabBarItem ->
+            NavigationBarItem(
+                modifier = Modifier
+                    .padding(0.dp)
+                    .fillMaxHeight()
+                    .size(60.dp),
+                selected = selectedTabIndex == index,
+                onClick = {
+                    selectedTabIndex = index
+                    navController.navigate(tabBarItem.title)
+                },
+                icon = {
+                    TabBarIconView(
+                        isSelected = selectedTabIndex == index,
+                        selectedIcon = tabBarItem.selectedIcon,
+                        unselectedIcon = tabBarItem.unselectedIcon,
+                        title = tabBarItem.title,
+                        badgeAmount = tabBarItem.badgeAmount
+                    )
+                },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = MaterialTheme.colorScheme.primary,
+                    selectedTextColor = MaterialTheme.colorScheme.primary,
+                    unselectedIconColor = MaterialTheme.colorScheme.secondary,
+                    unselectedTextColor = MaterialTheme.colorScheme.secondary,
+                    indicatorColor = MaterialTheme.colorScheme.primary
+                )
+
+
+            )
+        }
+
+    }
+}
 
