@@ -739,3 +739,14 @@ fun ProfileView() {
     }
 }
 
+
+@Composable
+fun DietView() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = colorResource(id = R.color.background))
+    ) {
+        AppBarView()
+    }
+}
