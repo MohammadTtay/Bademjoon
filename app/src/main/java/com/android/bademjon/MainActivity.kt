@@ -399,3 +399,343 @@ fun TabBarBadgeView(count: Int? = null) {
 
 // End navigation
 
+
+// pages contents
+
+@SuppressLint("StateFlowValueCalledInComposition")
+@Composable
+fun ProfileView() {
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .absolutePadding(bottom = 200.dp)
+            .background(color = colorResource(id = R.color.background))
+    ) {
+        AppBarView()
+        Row(modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
+            .weight(1.5F),
+            verticalAlignment = Alignment.CenterVertically) {
+            Row(modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    color = MaterialTheme.colorScheme.primary,
+                    shape = RoundedCornerShape(15.dp)
+                ),
+                verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = stringResource(id = R.string.name_and_surname)+" : ",
+                    modifier = Modifier
+                        .padding(start = 10.dp)
+                        .weight(1F),
+                    textAlign = TextAlign.End,
+                    fontFamily = GetFont(),
+                    color = MaterialTheme.colorScheme.secondary,
+                    fontWeight = FontWeight.Bold
+                )
+                var userDataSaver=UserDataSaver(LocalContext.current)
+                BasicTextField(
+                    value = userData.name.value,
+                    onValueChange = {
+                        userData.updateName(it)
+                        CoroutineScope(Dispatchers.IO).launch {
+                        userDataSaver.saver(userData)
+
+                    } },
+                    modifier = Modifier
+                        .padding(end = 10.dp)
+                        .weight(1F)
+                        .background(color = colorResource(id = R.color.transparent)),
+                    textStyle = LocalTextStyle.current.copy(
+                        color = MaterialTheme.colorScheme.secondary,
+                                textAlign = TextAlign.Start
+                    )
+                )
+
+
+            }
+
+        }
+
+        Row(modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
+            .weight(3F),
+            verticalAlignment = Alignment.CenterVertically) {
+
+            Column(modifier = Modifier
+                .padding(8.dp)
+                .fillMaxSize()
+                .weight(1F)
+                .background(
+                    color = MaterialTheme.colorScheme.primary,
+                    shape = RoundedCornerShape(15.dp)
+                ),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center) {
+                Text(
+                    text = stringResource(id = R.string.height),
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    fontFamily = GetFont(),
+                    color = MaterialTheme.colorScheme.secondary,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                BasicTextField(
+                    value = userData.height.value.toString(),
+                    onValueChange = {
+                        var i=0;
+                        if(it.toIntOrNull()!=null) {i=it.toInt()}
+                        userData.updateHeight(i) },
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    textStyle = LocalTextStyle.current.copy(
+                        color = MaterialTheme.colorScheme.secondary,
+                        textAlign = TextAlign.Center)
+                )
+
+
+            }
+
+            Column(modifier = Modifier
+                .padding(8.dp)
+                .fillMaxSize()
+                .weight(1F)
+                .background(
+                    color = MaterialTheme.colorScheme.primary,
+                    shape = RoundedCornerShape(15.dp)
+                ),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center) {
+                Text(
+                    text = stringResource(id = R.string.weight),
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    fontFamily = GetFont(),
+                    color = MaterialTheme.colorScheme.secondary,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                BasicTextField(
+                    value = userData.weight.value.toString(),
+                    onValueChange = {
+                        var i=0;
+                        if(it.toIntOrNull()!=null) {i=it.toInt()}
+                        userData.updateWeight(i) },
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    textStyle = LocalTextStyle.current.copy(
+                        color = MaterialTheme.colorScheme.secondary,
+                        textAlign = TextAlign.Center)
+                )
+
+
+            }
+
+            Column(modifier = Modifier
+                .padding(8.dp)
+                .fillMaxSize()
+                .weight(1F)
+                .background(
+                    color = MaterialTheme.colorScheme.primary,
+                    shape = RoundedCornerShape(15.dp)
+                ),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center) {
+                Text(
+                    text = stringResource(id = R.string.age),
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    fontFamily = GetFont(),
+                    color = MaterialTheme.colorScheme.secondary,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                BasicTextField(
+                    value = userData.age.value.toString(),
+                    onValueChange = {
+                        var i=0;
+                        if(it.toIntOrNull()!=null) {i=it.toInt()}
+                        userData.updateAge(i) },
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    textStyle = LocalTextStyle.current.copy(
+                        color = MaterialTheme.colorScheme.secondary,
+                        textAlign = TextAlign.Center)
+                )
+
+
+            }
+
+
+        }
+        Row(modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
+            .weight(3F),
+            verticalAlignment = Alignment.CenterVertically) {
+
+            Column(modifier = Modifier
+                .padding(8.dp)
+                .fillMaxSize()
+                .weight(1F)
+                .background(
+                    color = MaterialTheme.colorScheme.primary,
+                    shape = RoundedCornerShape(15.dp)
+                ),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center) {
+                Text(
+                    text = stringResource(id = R.string.around_the_wrist),
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    fontFamily = GetFont(),
+                    color = MaterialTheme.colorScheme.secondary,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                BasicTextField(
+                    value =userData.wrist.value.toString(),
+                    onValueChange = {
+                        var i=0;
+                        if(it.toIntOrNull()!=null) {i=it.toInt()}
+                        userData.updateWrist(i) },
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    textStyle = LocalTextStyle.current.copy(
+                        color = MaterialTheme.colorScheme.secondary,
+                        textAlign = TextAlign.Center)
+                )
+
+
+            }
+
+            Column(modifier = Modifier
+                .padding(8.dp)
+                .fillMaxSize()
+                .weight(2F)
+                .background(
+                    color = MaterialTheme.colorScheme.primary,
+                    shape = RoundedCornerShape(15.dp)
+                ),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center) {
+                Text(
+                    text = stringResource(id = R.string.activity_rate),
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    fontFamily = GetFont(),
+                    color = MaterialTheme.colorScheme.secondary,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+
+
+                val itemList = listOf<String>(
+                    stringResource(id = R.string.rate1),
+                    stringResource(id = R.string.rate2),
+                    stringResource(id = R.string.rate3))
+                var buttonModifier = Modifier.width(100.dp)
+
+                DropdownList(itemList = itemList,
+                            selectedIndex = userData.rate.value.toInt(),
+                            modifier = buttonModifier,
+                            onItemClick = {userData.updateRate(it)})
+
+
+
+
+            }
+
+
+
+        }
+        Row(modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
+            .weight(3F),
+            verticalAlignment = Alignment.CenterVertically) {
+
+
+            Column(modifier = Modifier
+                .padding(8.dp)
+                .fillMaxSize()
+                .weight(1F)
+                .background(
+                    color = MaterialTheme.colorScheme.primary,
+                    shape = RoundedCornerShape(15.dp)
+                ),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center) {
+                Text(
+                    text = stringResource(id = R.string.gender),
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    fontFamily = GetFont(),
+                    color = MaterialTheme.colorScheme.secondary,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+
+                val itemList1 = listOf<String>(
+                    stringResource(id = R.string.male),
+                    stringResource(id = R.string.female))
+                var buttonModifier1 = Modifier.width(100.dp)
+
+                DropdownList(itemList = itemList1,
+                    selectedIndex = userData.gender.value.toInt(),
+                    modifier = buttonModifier1,
+                    onItemClick = {userData.updateGender(it)})
+
+
+            }
+
+            Column(modifier = Modifier
+                .padding(8.dp)
+                .fillMaxSize()
+                .weight(2F)
+                .background(
+                    color = MaterialTheme.colorScheme.primary,
+                    shape = RoundedCornerShape(15.dp)
+                ),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center) {
+                Text(
+                    text = stringResource(id = R.string.special_disease),
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    fontFamily = GetFont(),
+                    color = MaterialTheme.colorScheme.secondary,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+
+
+                val itemList2 = listOf<String>(
+                    stringResource(id = R.string.ihave),
+                    stringResource(id = R.string.idhave))
+                var buttonModifier2 = Modifier.width(100.dp)
+
+                DropdownList(itemList = itemList2,
+                    selectedIndex = userData.disease.value.toInt(),
+                    modifier = buttonModifier2,
+                    onItemClick = {userData.updateDisease(it)})
+
+
+            }
+
+
+        }
+    }
+}
+
