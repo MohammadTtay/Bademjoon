@@ -327,3 +327,61 @@ fun TabView(tabBarItems: List<TabBarItem>,
     }
 }
 
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TabBarIconView(
+    isSelected: Boolean,
+    selectedIcon: Int,
+    unselectedIcon: Int,
+    title: String,
+    badgeAmount: Int? = null
+
+) {
+    BadgedBox(
+        modifier = Modifier.fillMaxHeight(),
+        badge = { TabBarBadgeView(badgeAmount) }) {
+
+        // To show top bar on selected item
+        if (isSelected) {
+            Divider(
+                color = MaterialTheme.colorScheme.secondary,
+                thickness = dimensionResource(id = R.dimen._5sdp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .align(Alignment.Center)
+            )
+        }
+        Column {
+            Image(
+                painter = painterResource(id =  if (isSelected) {
+                    selectedIcon
+                } else {
+                    unselectedIcon
+                }),
+                contentDescription = title,
+                modifier = Modifier
+                    .align(alignment = Alignment.CenterHorizontally)
+                    .size(35.dp),
+                colorFilter = ColorFilter.tint(color =  if (isSelected) {
+                    MaterialTheme.colorScheme.primary
+                } else {
+                    MaterialTheme.colorScheme.secondary
+                })
+            )
+
+            Text(
+                text = title, modifier = Modifier
+                    .fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                fontFamily = GetFont(),
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+
+    }
+}
+
