@@ -385,3 +385,17 @@ fun TabBarIconView(
     }
 }
 
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+fun TabBarBadgeView(count: Int? = null) {
+    if (count != null) {
+        Badge(modifier = Modifier.padding(top = 40.dp, start = 15.dp)) {
+            Text(count.toString())
+
+        }
+    }
+}
+
+// End navigation
+
