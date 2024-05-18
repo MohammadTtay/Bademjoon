@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">بادمجون</string>
+
+    <string name="profile">نمایه</string>
+    <string name="diet">برنامه غذایی</string>
+    <string name="home">خانه</string>
+    <string name="sport">ورزش</string>
+    <string name="setting">تنظیمات</string>
+
+    <string name="calories">کالری</string>
+    <string name="receipt">دریافتی</string>
+    <string name="left_over">باقیمانده</string>
+    <string name="burned">سوزانده شده</string>
+    <string name="fat">چربی</string>
+    <string name="protein">پروتئین</string>
+    <string name="carbohydrate">کربوهیدرات</string>
+    <string name="gram">گرم</string>
+    <string name="suggested">پیشنهادی</string>
+    <string name="breakfast">صبحانه</string>
+    <string name="lunch">ناهار</string>
+    <string name="dinner">شام</string>
+
+
+
+    <string name="name_and_surname">نام و نام خانوادگی</string>
+    <string name="height">قد</string>
+    <string name="weight">وزن</string>
+    <string name="age">سن</string>
+    <string name="around_the_wrist">دور مچ</string>
+    <string name="activity_rate">میزان فعالیت</string>
+    <string name="gender">جنسیت</string>
+    <string name="special_disease">بیماری خاص</string>
+
+
+    <string name="rate1">کم</string>
+    <string name="rate2">متوسط</string>
+    <string name="rate3">زیاد</string>
+
+    <string name="male">مرد</string>
+    <string name="female">زن</string>
+
+    <string name="ihave">دارم</string>
+    <string name="idhave">ندارم</string>
+
+    <string name="language">تغییر زبان</string>
+    <string name="clear">کاهش</string>
+</resources>
