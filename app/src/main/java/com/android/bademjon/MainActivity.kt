@@ -90,16 +90,10 @@ import kotlinx.coroutines.launch
 import java.util.Locale
 import kotlin.random.Random
 
-/**
- * The main activity of the application.
- */
+
 class MainActivity : ComponentActivity() {
 
-    /**
-     * Called when the activity is starting.
-     *
-     * @param savedInstanceState A Bundle containing the activity's previously saved state.
-     */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -107,22 +101,9 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    /**
-     * Attaches the base context to the activity and sets the app locale.
-     *
-     * @param newBase The new base context.
-     */
-
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(ContextWrapper(newBase.setAppLocale(newBase)))
     }
-
-    /**
-     * Sets the app locale based on the user's preference.
-     *
-     * @param newBase The base context.
-     * @return The context with the updated locale configuration.
-     */
 
     fun Context.setAppLocale(newBase: Context): Context {
         val sharedPref = applicationContext.getSharedPreferences("app",Context.MODE_PRIVATE)
@@ -136,10 +117,6 @@ class MainActivity : ComponentActivity() {
 
         return createConfigurationContext(config)
     }
-
-    /**
-     * Changes the app language between English and Persian.
-     */
 
     fun ChangeLanguage()
     {
@@ -278,7 +255,6 @@ fun AppView(ChangeLanguage: ()-> Unit) {
 }
 
 
-
 @Composable
 fun TabView(tabBarItems: List<TabBarItem>,
             navController: NavController) {
@@ -326,7 +302,6 @@ fun TabView(tabBarItems: List<TabBarItem>,
 
     }
 }
-
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -398,6 +373,12 @@ fun TabBarBadgeView(count: Int? = null) {
 }
 
 // End navigation
+
+
+
+
+
+
 
 
 // pages contents
@@ -750,3 +731,594 @@ fun DietView() {
         AppBarView()
     }
 }
+
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun HomeView() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .absolutePadding(bottom = 70.dp)
+            .background(color = colorResource(id = R.color.background))
+    ) {
+        AppBarView()
+        Row(modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
+            .weight(2F),
+            verticalAlignment = Alignment.CenterVertically) {
+            Column(modifier = Modifier.weight(1F), horizontalAlignment = Alignment.CenterHorizontally){
+                Text(
+                    text=homeData.receipt.value.toString()+" "+stringResource(id = R.string.calories)+"\n"+stringResource(id = R.string.receipt),
+                    fontFamily = GetFont(),
+                    color = MaterialTheme.colorScheme.primary,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.rice_bowl),
+                    contentDescription = stringResource(id = R.string.app_name),
+                    modifier = Modifier
+                        .size(30.dp)
+                )
+            }
+            Column(modifier = Modifier.weight(2F), horizontalAlignment = Alignment.CenterHorizontally){
+               Box (Modifier.fillMaxSize(),contentAlignment = Alignment.Center){
+                   Text(
+                       text = homeData.leftOver.value.toString()+" " + stringResource(id = R.string.calories) + "\n" + stringResource(
+                           id = R.string.left_over
+                       ),
+                       fontFamily = GetFont(),
+                       color = MaterialTheme.colorScheme.primary,
+                       textAlign = TextAlign.Center,
+                       fontWeight = FontWeight.Bold
+                   )
+                   CircularProgressIndicator(
+                       modifier = Modifier.size(200.dp, 200.dp),
+                       strokeWidth = 15.dp,
+                       progress = homeData.leftOverProcess.value,
+                       color = MaterialTheme.colorScheme.primary,
+                       trackColor = MaterialTheme.colorScheme.secondary,
+                   )
+               }
+            }
+            Column(modifier = Modifier.weight(1F), horizontalAlignment = Alignment.CenterHorizontally){
+                Text(
+                    text=homeData.burned.value.toString()+" "+stringResource(id = R.string.calories)+"\n"+stringResource(id = R.string.burned),
+                    fontFamily = GetFont(),
+                    color = MaterialTheme.colorScheme.primary,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.fire),
+                    contentDescription = stringResource(id = R.string.app_name),
+                    modifier = Modifier
+                        .size(30.dp)
+                )
+            }
+        }
+        Row(modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
+            .weight(1.5F),
+            verticalAlignment = Alignment.CenterVertically) {
+            Column(modifier = Modifier
+                .weight(1F)
+                .padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally){
+                Text(
+                    text=stringResource(id = R.string.fat),
+                    fontFamily = GetFont(),
+                    color = MaterialTheme.colorScheme.primary,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(5.dp))
+                LinearProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(10.dp)
+                        .clip(RoundedCornerShape(5.dp, 5.dp, 5.dp, 5.dp)),
+                    progress = homeData.fatProcess.value,
+                    color = MaterialTheme.colorScheme.primary,
+                    trackColor = MaterialTheme.colorScheme.secondary,
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text=homeData.fat.value.toString()+" "+stringResource(id = R.string.gram),
+                    fontFamily = GetFont(),
+                    color = MaterialTheme.colorScheme.primary,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            Column(modifier = Modifier
+                .weight(1F)
+                .padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally){
+                Text(
+                    text=stringResource(id = R.string.protein),
+                    fontFamily = GetFont(),
+                    color = MaterialTheme.colorScheme.primary,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(5.dp))
+                LinearProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(10.dp)
+                        .clip(RoundedCornerShape(5.dp, 5.dp, 5.dp, 5.dp)),
+                    progress = homeData.proteinProcess.value,
+                    color = MaterialTheme.colorScheme.primary,
+                    trackColor = MaterialTheme.colorScheme.secondary,
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text=homeData.protein.value.toString()+" "+stringResource(id = R.string.gram),
+                    fontFamily = GetFont(),
+                    color = MaterialTheme.colorScheme.primary,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            Column(modifier = Modifier
+                .weight(1F)
+                .padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally){
+                Text(
+                    text=stringResource(id = R.string.carbohydrate),
+                    fontFamily = GetFont(),
+                    color = MaterialTheme.colorScheme.primary,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(5.dp))
+                LinearProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(10.dp)
+                        .clip(RoundedCornerShape(5.dp, 5.dp, 5.dp, 5.dp)),
+                    progress = homeData.carboProcess.value,
+                    color = MaterialTheme.colorScheme.primary,
+                    trackColor = MaterialTheme.colorScheme.secondary,
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text=homeData.carbo.value.toString()+" "+stringResource(id = R.string.gram),
+                    fontFamily = GetFont(),
+                    color = MaterialTheme.colorScheme.primary,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+        Column(modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
+            .weight(2.5F), horizontalAlignment = Alignment.CenterHorizontally) {
+
+            Spacer(modifier = Modifier.height(20.dp))
+            Button(modifier = Modifier
+                .width(350.dp)
+                .height(40.dp),
+                contentPadding = PaddingValues(0.dp),
+                onClick = { AddProtein() },
+                shape = RoundedCornerShape(10.dp)) {
+                Image(
+                    painter = painterResource(id = R.drawable.milk_carton),
+                    contentDescription = stringResource(id = R.string.app_name),
+                    modifier = Modifier
+                        .size(30.dp)
+                        .weight(1F),
+                    colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.secondary)
+                )
+                Text(modifier = Modifier
+                    .weight(7F),
+                    text=stringResource(id = R.string.breakfast)+" : "+stringResource(id = R.string.suggested)+" "+homeData.breakfast.value.toString()+" "+stringResource(id = R.string.calories),
+                    fontFamily = GetFont(),
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.secondary
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.group),
+                    contentDescription = stringResource(id = R.string.app_name),
+                    modifier = Modifier
+                        .size(30.dp)
+                        .weight(1F),
+                    colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.secondary)
+                )
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Button(modifier = Modifier
+                .width(350.dp)
+                .height(40.dp),
+                contentPadding = PaddingValues(0.dp),
+                onClick = { AddCarbo() },
+                shape = RoundedCornerShape(10.dp)) {
+                Image(
+                    painter = painterResource(id = R.drawable.beef_burger),
+                    contentDescription = stringResource(id = R.string.app_name),
+                    modifier = Modifier
+                        .size(30.dp)
+                        .weight(1F),
+                    colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.secondary)
+                )
+                Text(modifier = Modifier
+                    .weight(7F),
+                    text=stringResource(id = R.string.lunch)+" : "+stringResource(id = R.string.suggested)+" "+homeData.lunch.value.toString()+" "+stringResource(id = R.string.calories),
+                    fontFamily = GetFont(),
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.secondary
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.group),
+                    contentDescription = stringResource(id = R.string.app_name),
+                    modifier = Modifier
+                        .size(30.dp)
+                        .weight(1F),
+                    colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.secondary)
+                )
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Button(modifier = Modifier
+                .width(350.dp)
+                .height(40.dp),
+                contentPadding = PaddingValues(0.dp),
+                onClick = { AddFat() },
+                shape = RoundedCornerShape(10.dp)) {
+                Image(
+                    painter = painterResource(id = R.drawable.turkeycock),
+                    contentDescription = stringResource(id = R.string.app_name),
+                    modifier = Modifier
+                        .size(30.dp)
+                        .weight(1F),
+                    colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.secondary)
+                )
+                Text(modifier = Modifier
+                    .weight(7F),
+                    text=stringResource(id = R.string.dinner)+" : "+stringResource(id = R.string.suggested)+" "+homeData.dinner.value.toString()+" "+stringResource(id = R.string.calories),
+                    fontFamily = GetFont(),
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.secondary
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.group),
+                    contentDescription = stringResource(id = R.string.app_name),
+                    modifier = Modifier
+                        .size(30.dp)
+                        .weight(1F),
+                    colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.secondary)
+                )
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Button(modifier = Modifier
+                .width(350.dp)
+                .height(40.dp),
+                contentPadding = PaddingValues(0.dp),
+                onClick = { DesAll() },
+                shape = RoundedCornerShape(10.dp)) {
+                Image(
+                    painter = painterResource(id = R.drawable.del),
+                    contentDescription = stringResource(id = R.string.app_name),
+                    modifier = Modifier
+                        .size(30.dp)
+                        .weight(1F),
+                    colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.secondary)
+                )
+                Text(modifier = Modifier
+                    .weight(7F),
+                    text=stringResource(id = R.string.clear)+" "+stringResource(id = R.string.calories),
+                    fontFamily = GetFont(),
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.secondary
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.dec),
+                    contentDescription = stringResource(id = R.string.app_name),
+                    modifier = Modifier
+                        .size(30.dp)
+                        .weight(1F),
+                    colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.secondary)
+                )
+            }
+        }
+    }
+}
+
+
+@Composable
+fun SportView() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = colorResource(id = R.color.background))
+    ) {
+        AppBarView()
+    }
+}
+
+
+@Composable
+fun SettingView(ChangeLanguage: ()-> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = colorResource(id = R.color.background))
+    ) {
+        AppBarView()
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+        Button(onClick = { ChangeLanguage()})
+        {
+            Text(
+                text=stringResource(id = R.string.language),
+                fontFamily = GetFont(),
+                color = MaterialTheme.colorScheme.secondary,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold
+            )
+        }
+        }
+
+    }
+}
+
+
+// End pages
+
+
+
+
+
+
+
+
+
+
+
+// pages sections
+
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+fun AppBarView(){
+    var userDataSaver=UserDataSaver(LocalContext.current)
+    CenterAlignedTopAppBar(modifier = Modifier
+        .clickable {
+            CoroutineScope(Dispatchers.IO).launch {
+                    userDataSaver.saver(userData)
+
+            }},
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.background,
+            titleContentColor = MaterialTheme.colorScheme.primary,
+        ),
+        title = {
+            Row {
+            Image(
+                    painter = painterResource(id = R.drawable.eggplant),
+                    contentDescription = stringResource(id = R.string.app_name),
+                modifier = Modifier
+                    .size(35.dp),
+                colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.primary)
+                )
+            Text(
+                text=stringResource(id = R.string.app_name),
+                fontFamily = GetFont(),
+                fontSize = 30.sp,
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.Bold
+            )
+            }
+        }
+    )
+}
+
+
+@Composable
+fun DropdownList(itemList: List<String>,selectedIndex: Int, modifier: Modifier, onItemClick: (Int) -> Unit) {
+
+    var showDropdown by rememberSaveable { mutableStateOf(false) }
+    val scrollState = rememberScrollState()
+
+    Column(
+        modifier = Modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center) {
+
+        // button
+        Box(
+            modifier = modifier
+                .clickable { showDropdown = true },
+//            .clickable { showDropdown = !showDropdown },
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = itemList[selectedIndex],
+                modifier = Modifier.padding(3.dp),
+                textAlign = TextAlign.Center,
+                fontFamily = GetFont(),
+                color = MaterialTheme.colorScheme.secondary
+            )
+            
+        }
+
+        // dropdown list
+        Box() {
+            if (showDropdown) {
+                Popup(
+                    alignment = Alignment.TopCenter,
+                    properties = PopupProperties(
+                        excludeFromSystemGesture = true,
+                    ),
+                    // to dismiss on click outside
+                    onDismissRequest = { showDropdown = false }
+                ) {
+
+                    Column(
+                        modifier = modifier
+                            .heightIn(max = 90.dp)
+                            .verticalScroll(state = scrollState)
+                            .border(width = 1.dp, color = Color.Gray),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+
+                        itemList.onEachIndexed { index, item ->
+                            if (index != 0) {
+                                Divider(thickness = 1.dp, color = Color.LightGray)
+                            }
+                            Box(
+                                modifier = Modifier
+                                    .background(MaterialTheme.colorScheme.primary)
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        onItemClick(index)
+                                        showDropdown = !showDropdown
+
+                                    },
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(text = item,
+                                    textAlign = TextAlign.Center,
+                                    fontFamily = GetFont(),
+                                    color = MaterialTheme.colorScheme.secondary)
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+
+// Ens sections
+
+
+
+
+
+
+
+
+
+// helpers
+
+
+// priview for editor
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    //AppView()
+}
+
+
+fun GetFont(): FontFamily {
+
+    val PersianFamily = FontFamily(
+        Font(R.font.iran_sans_medium, FontWeight.Light),
+        Font(R.font.iran_sans_regular, FontWeight.Normal),
+        Font(R.font.iran_sans_regular, FontWeight.Normal, FontStyle.Italic),
+        Font(R.font.iran_sans_medium, FontWeight.Medium),
+        Font(R.font.iran_sans_bold, FontWeight.Bold)
+    )
+
+    val EnglishFamily = FontFamily(
+        Font(R.font.product_sans_medium, FontWeight.Light),
+        Font(R.font.product_sans_regular, FontWeight.Normal),
+        Font(R.font.product_sans_regular, FontWeight.Normal, FontStyle.Italic),
+        Font(R.font.product_sans_medium, FontWeight.Medium),
+        Font(R.font.product_sans_bold, FontWeight.Bold)
+    )
+
+    return PersianFamily;
+}
+
+
+@Composable
+fun CheckIntent():Boolean{
+    val context = LocalContext.current
+    val activity = context.findActivity()
+    val intent = activity?.intent
+    try {
+        val uri= intent?.data
+        val height= uri?.getQueryParameter("height")?.toInt()
+        val weight= uri?.getQueryParameter("weight")?.toInt()
+        if(!intentNull.value && uri!=null && height!=null && weight!=null) {
+            homeData.receipt(10 * height)
+            homeData.burned(6 * weight)
+            homeData.leftOver(homeData.receipt.intValue - homeData.burned.intValue + 85)
+            homeData.leftOverProcess(Random.nextFloat())
+            homeData.fatProcess(Random.nextFloat())
+            homeData.proteinProcess(Random.nextFloat())
+            homeData.carboProcess(Random.nextFloat())
+            homeData.fat(3 * height)
+            homeData.protein(9 * weight)
+            homeData.carbo(15 * height)
+            homeData.breakfast(4 * weight)
+            homeData.lunch(5 * height)
+            homeData.dinner(6 * weight)
+            return true
+        }
+    }catch(_:Exception){}
+    return false
+}
+
+
+@Composable
+fun ClearIntent() {
+    intentNull.value=true
+}
+
+
+
+fun AddProtein() {
+    homeData.protein(homeData.protein.intValue+1)
+}
+
+
+fun AddCarbo() {
+    homeData.carbo(homeData.carbo.intValue+1)
+}
+
+
+fun AddFat() {
+    homeData.fat(homeData.fat.intValue+1)
+}
+
+
+fun DesAll() {
+    if(homeData.protein.intValue>0) homeData.protein(homeData.protein.intValue-1)
+    if(homeData.carbo.intValue>0) homeData.carbo(homeData.carbo.intValue-1)
+    if(homeData.fat.intValue>0) homeData.fat(homeData.fat.intValue-1)
+}
+
+
+@Composable
+fun GetFloat(min:Int,max:Int):Float {
+    if(min==0) return 0F
+    var min2:Float=min*1F
+    var max2:Float=max*1F
+    if(min2>=max2) max2=min2*1.5F
+
+    var one:Float=max2/100F
+    var one2:Float=1F/100F
+    var per:Float=min2/one
+    return per*one2
+}
+
+
+fun Context.findActivity(): Activity? = when (this) {
+    is Activity -> this
+    is ContextWrapper -> baseContext.findActivity()
+    else -> null
+}
+
+// End helpers
