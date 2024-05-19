@@ -1118,3 +1118,85 @@ fun AppBarView(){
         }
     )
 }
+
+
+@Composable
+fun DropdownList(itemList: List<String>,selectedIndex: Int, modifier: Modifier, onItemClick: (Int) -> Unit) {
+
+    var showDropdown by rememberSaveable { mutableStateOf(false) }
+    val scrollState = rememberScrollState()
+
+    Column(
+        modifier = Modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center) {
+
+        // button
+        Box(
+            modifier = modifier
+                .clickable { showDropdown = true },
+//            .clickable { showDropdown = !showDropdown },
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = itemList[selectedIndex],
+                modifier = Modifier.padding(3.dp),
+                textAlign = TextAlign.Center,
+                fontFamily = GetFont(),
+                color = MaterialTheme.colorScheme.secondary
+            )
+            
+        }
+
+        // dropdown list
+        Box() {
+            if (showDropdown) {
+                Popup(
+                    alignment = Alignment.TopCenter,
+                    properties = PopupProperties(
+                        excludeFromSystemGesture = true,
+                    ),
+                    // to dismiss on click outside
+                    onDismissRequest = { showDropdown = false }
+                ) {
+
+                    Column(
+                        modifier = modifier
+                            .heightIn(max = 90.dp)
+                            .verticalScroll(state = scrollState)
+                            .border(width = 1.dp, color = Color.Gray),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+
+                        itemList.onEachIndexed { index, item ->
+                            if (index != 0) {
+                                Divider(thickness = 1.dp, color = Color.LightGray)
+                            }
+                            Box(
+                                modifier = Modifier
+                                    .background(MaterialTheme.colorScheme.primary)
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        onItemClick(index)
+                                        showDropdown = !showDropdown
+
+                                    },
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(text = item,
+                                    textAlign = TextAlign.Center,
+                                    fontFamily = GetFont(),
+                                    color = MaterialTheme.colorScheme.secondary)
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+
+// End sections
