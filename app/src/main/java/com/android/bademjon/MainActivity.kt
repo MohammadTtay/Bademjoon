@@ -1070,3 +1070,51 @@ fun SettingView(ChangeLanguage: ()-> Unit) {
 
 
 // End pages
+
+
+
+
+
+
+
+
+
+
+
+// pages sections
+
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+fun AppBarView(){
+    var userDataSaver=UserDataSaver(LocalContext.current)
+    CenterAlignedTopAppBar(modifier = Modifier
+        .clickable {
+            CoroutineScope(Dispatchers.IO).launch {
+                    userDataSaver.saver(userData)
+
+            }},
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.background,
+            titleContentColor = MaterialTheme.colorScheme.primary,
+        ),
+        title = {
+            Row {
+            Image(
+                    painter = painterResource(id = R.drawable.eggplant),
+                    contentDescription = stringResource(id = R.string.app_name),
+                modifier = Modifier
+                    .size(35.dp),
+                colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.primary)
+                )
+            Text(
+                text=stringResource(id = R.string.app_name),
+                fontFamily = GetFont(),
+                fontSize = 30.sp,
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.Bold
+            )
+            }
+        }
+    )
+}
