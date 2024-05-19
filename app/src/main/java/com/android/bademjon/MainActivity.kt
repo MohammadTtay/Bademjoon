@@ -1200,3 +1200,21 @@ fun DropdownList(itemList: List<String>,selectedIndex: Int, modifier: Modifier, 
 
 
 // End sections
+
+
+
+
+
+
+
+
+
+// helpers
+
+
+// priview for editor
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    //AppView()
+}
