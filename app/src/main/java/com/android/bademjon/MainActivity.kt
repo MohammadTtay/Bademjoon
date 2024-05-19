@@ -1241,3 +1241,32 @@ fun GetFont(): FontFamily {
     return PersianFamily;
 }
 
+
+@Composable
+fun CheckIntent():Boolean{
+    val context = LocalContext.current
+    val activity = context.findActivity()
+    val intent = activity?.intent
+    try {
+        val uri= intent?.data
+        val height= uri?.getQueryParameter("height")?.toInt()
+        val weight= uri?.getQueryParameter("weight")?.toInt()
+        if(!intentNull.value && uri!=null && height!=null && weight!=null) {
+            homeData.receipt(10 * height)
+            homeData.burned(6 * weight)
+            homeData.leftOver(homeData.receipt.intValue - homeData.burned.intValue + 85)
+            homeData.leftOverProcess(Random.nextFloat())
+            homeData.fatProcess(Random.nextFloat())
+            homeData.proteinProcess(Random.nextFloat())
+            homeData.carboProcess(Random.nextFloat())
+            homeData.fat(3 * height)
+            homeData.protein(9 * weight)
+            homeData.carbo(15 * height)
+            homeData.breakfast(4 * weight)
+            homeData.lunch(5 * height)
+            homeData.dinner(6 * weight)
+            return true
+        }
+    }catch(_:Exception){}
+    return false
+}
