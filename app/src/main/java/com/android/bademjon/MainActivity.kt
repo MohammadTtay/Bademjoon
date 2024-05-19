@@ -1218,3 +1218,26 @@ fun DropdownList(itemList: List<String>,selectedIndex: Int, modifier: Modifier, 
 fun GreetingPreview() {
     //AppView()
 }
+
+
+fun GetFont(): FontFamily {
+
+    val PersianFamily = FontFamily(
+        Font(R.font.iran_sans_medium, FontWeight.Light),
+        Font(R.font.iran_sans_regular, FontWeight.Normal),
+        Font(R.font.iran_sans_regular, FontWeight.Normal, FontStyle.Italic),
+        Font(R.font.iran_sans_medium, FontWeight.Medium),
+        Font(R.font.iran_sans_bold, FontWeight.Bold)
+    )
+
+    val EnglishFamily = FontFamily(
+        Font(R.font.product_sans_medium, FontWeight.Light),
+        Font(R.font.product_sans_regular, FontWeight.Normal),
+        Font(R.font.product_sans_regular, FontWeight.Normal, FontStyle.Italic),
+        Font(R.font.product_sans_medium, FontWeight.Medium),
+        Font(R.font.product_sans_bold, FontWeight.Bold)
+    )
+
+    return PersianFamily;
+}
+
