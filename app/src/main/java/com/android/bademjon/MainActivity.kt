@@ -1284,3 +1284,8 @@ fun AddProtein() {
 }
 
 
+fun AddCarbo() {
+    homeData.carbo(homeData.carbo.intValue+1)
+}
+
+
