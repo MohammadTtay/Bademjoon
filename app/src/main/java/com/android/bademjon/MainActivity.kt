@@ -1289,3 +1289,8 @@ fun AddCarbo() {
 }
 
 
+fun AddFat() {
+    homeData.fat(homeData.fat.intValue+1)
+}
+
+
