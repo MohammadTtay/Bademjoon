@@ -1301,3 +1301,17 @@ fun DesAll() {
 }
 
 
+@Composable
+fun GetFloat(min:Int,max:Int):Float {
+    if(min==0) return 0F
+    var min2:Float=min*1F
+    var max2:Float=max*1F
+    if(min2>=max2) max2=min2*1.5F
+
+    var one:Float=max2/100F
+    var one2:Float=1F/100F
+    var per:Float=min2/one
+    return per*one2
+}
+
+
