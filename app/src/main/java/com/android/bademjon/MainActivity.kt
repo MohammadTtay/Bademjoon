@@ -1277,3 +1277,10 @@ fun ClearIntent() {
     intentNull.value=true
 }
 
+
+
+fun AddProtein() {
+    homeData.protein(homeData.protein.intValue+1)
+}
+
+
