@@ -1270,3 +1270,10 @@ fun CheckIntent():Boolean{
     }catch(_:Exception){}
     return false
 }
+
+
+@Composable
+fun ClearIntent() {
+    intentNull.value=true
+}
+
