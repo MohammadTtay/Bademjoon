@@ -1294,3 +1294,10 @@ fun AddFat() {
 }
 
 
+fun DesAll() {
+    if(homeData.protein.intValue>0) homeData.protein(homeData.protein.intValue-1)
+    if(homeData.carbo.intValue>0) homeData.carbo(homeData.carbo.intValue-1)
+    if(homeData.fat.intValue>0) homeData.fat(homeData.fat.intValue-1)
+}
+
+
